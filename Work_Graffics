@@ -1,0 +1,8 @@
+CREATE TABLE WORK_GRAFFICS (
+Branch_code integer NOT NULL PRIMARY KEY,
+Departament_code character varying NOT NULL,
+Day_of_week character varying NOT NULL,
+Workday_start time without time zone NOT NULL, 
+Workday_end time without time zone NOT NULL,
+Break_start time without time zone NOT NULL,
+Break_end time without time zone NOT NULL)
