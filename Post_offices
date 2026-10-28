@@ -1,0 +1,9 @@
+CREATE TABLE POST_OFFICES (
+Branch_code integer NOT NULL PRIMARY KEY,
+Address character varying NOT NULL,
+City character varying NOT NULL,
+District character varying NOT NULL, 
+Index character varying NOT NULL,
+Phone_number character varying NOT NULL,
+Foreign Key (Branch_code) REFERENCES Work_graffics(Branch_code)
+)
