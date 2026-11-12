@@ -1,0 +1,29 @@
+CREATE TABLE work_schedules (
+    branch_code       INTEGER      NOT NULL,
+    department_code   INTEGER      NOT NULL CHECK (department_code > 0),
+    day_of_week       VARCHAR(20)  NOT NULL,
+    start_time        TIME         NOT NULL,
+    end_time          TIME         NOT NULL,
+    break_start       TIME         NOT NULL,
+    break_end         TIME         NOT NULL,
+
+    -- Составной первичный ключ: в одном отделе не может быть двух графиков на один день
+    PRIMARY KEY (branch_code, department_code, day_of_week),
+
+    -- Внешний ключ: branch_code ссылается на post_offices.branch_code
+    CONSTRAINT fk_schedule_branch
+        FOREIGN KEY (branch_code)
+        REFERENCES post_offices (branch_code)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+
+    -- Ограничения на день недели
+    CONSTRAINT chk_day_of_week CHECK (
+        day_of_week IN ('Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье')
+    ),
+
+    -- Логические проверки для времени
+    CONSTRAINT chk_work_time CHECK (end_time > start_time),
+    CONSTRAINT chk_break_time CHECK (break_end > break_start),
+    CONSTRAINT chk_break_inside_work CHECK (break_start >= start_time AND break_end <= end_time)
+);
