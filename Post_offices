@@ -1,0 +1,8 @@
+CREATE TABLE post_offices (
+    branch_code   INTEGER       PRIMARY KEY,          -- код отделения (первичный ключ)
+    address       VARCHAR(255)  NOT NULL,             -- адрес
+    city          VARCHAR(100)  NOT NULL,             -- город
+    district      VARCHAR(100),                       -- район (может быть не указан)
+    postal_index  CHAR(6)       NOT NULL CHECK (postal_index ~ '^[0-9]{6}$'), -- индекс: ровно 6 цифр
+    phone         VARCHAR(20)   NOT NULL              -- телефон
+);
